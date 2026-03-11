@@ -458,19 +458,19 @@
             plane.position.y = -0.02;
             scene.add(plane);
 
-            const ambient = new THREE.AmbientLight(0xffffff, 2.0);
+            const ambient = new THREE.AmbientLight(0xffffff, 1.8);
             scene.add(ambient);
 
-            const hemi = new THREE.HemisphereLight(0xffffff, 0x777777, 1.4);
+            const hemi = new THREE.HemisphereLight(0xffffff, 0xbbbbbb, 0.6);
             scene.add(hemi);
 
-            const mainLight = new THREE.DirectionalLight(0xffffff, 2.2);
+            const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
             mainLight.position.set(5, 10, 5);
             mainLight.castShadow = true;
             mainLight.shadow.bias = -0.001;
             scene.add(mainLight);
 
-            const fillLight = new THREE.DirectionalLight(0xffffff, 1.4);
+            const fillLight = new THREE.DirectionalLight(0xffffff, 1.2);
             fillLight.position.set(-5, 5, -5);
             scene.add(fillLight);
 
@@ -482,7 +482,7 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.shadowMap.enabled = true;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.4; 
+            renderer.toneMappingExposure = 1.0; 
             document.body.appendChild(renderer.domElement);
 
             orbit = new OrbitControls(camera, renderer.domElement);
@@ -1105,8 +1105,6 @@
                         c.castShadow = true;
                         c.receiveShadow = true;
                         if (c.material && c.material.name === 'Frozen white metal') {
-                            c.material.metalness = 0.55;
-                            c.material.roughness = 0.22;
                             if (scene.environment) c.material.envMap = scene.environment;
                             c.material.envMapIntensity = 2.5;
                             c.material.needsUpdate = true;
