@@ -408,19 +408,19 @@
             plane.position.y = -0.02;
             scene.add(plane);
 
-            const ambient = new THREE.AmbientLight(0xffffff, 1.8); 
+            const ambient = new THREE.AmbientLight(0xffffff, 0.6);
             scene.add(ambient);
 
-            const hemi = new THREE.HemisphereLight(0xffffff, 0xbbbbbb, 0.6); 
+            const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
             scene.add(hemi);
 
-            const mainLight = new THREE.DirectionalLight(0xffffff, 0.8); 
+            const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
             mainLight.position.set(5, 10, 5);
             mainLight.castShadow = true;
             mainLight.shadow.bias = -0.001;
             scene.add(mainLight);
 
-            const fillLight = new THREE.DirectionalLight(0xffffff, 1.2); 
+            const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
             fillLight.position.set(-5, 5, -5);
             scene.add(fillLight);
 
@@ -432,7 +432,7 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.shadowMap.enabled = true;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.0; 
+            renderer.toneMappingExposure = 1.2; 
             document.body.appendChild(renderer.domElement);
 
             orbit = new OrbitControls(camera, renderer.domElement);
@@ -1050,7 +1050,22 @@
                     if (fixRot.z) m.rotateZ(THREE.MathUtils.degToRad(fixRot.z));
                 }
 
-                m.traverse(c => { if(c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
+                m.traverse(c => {
+                    if (c.isMesh) {
+                        c.castShadow = true;
+                        c.receiveShadow = true;
+                        // Mejorar materiales metálicos de los caños
+                        if (categoriaActiva === 'canos' && c.material) {
+                            const mat = c.material;
+                            if (mat.isMeshStandardMaterial || mat.isMeshPhysicalMaterial) {
+                                mat.metalness = Math.max(mat.metalness, 0.85);
+                                mat.roughness = Math.min(mat.roughness, 0.25);
+                                mat.envMapIntensity = 1.8;
+                                mat.needsUpdate = true;
+                            }
+                        }
+                    }
+                });
 
                 m.userData.itemData = itemActivo;
                 m.userData.archivo = archivo;
