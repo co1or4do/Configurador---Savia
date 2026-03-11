@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>CONFIGURADOR SAVIA</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
@@ -204,6 +205,55 @@
         #qty-val { min-width: 45px; text-align: center; font-size: 14px; font-weight: bold; color: var(--accent); }
 
         #loader { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size: 10px; letter-spacing: 3px; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            #left-controls { top: 15px; left: 15px; gap: 8px; }
+            #btn-undo { width: 50px; }
+            .btn-action { padding: 8px 10px; font-size: 8px; width: 100px; letter-spacing: 0.5px; }
+
+            #btn-finish { top: 15px; right: 15px; padding: 8px 15px; font-size: 9px; }
+
+            #medidas-container { top: 60px; right: 15px; padding: 10px; font-size: 9px; min-width: 90px; }
+
+            #header-container { top: 15px; }
+            h1.logo-text { font-size: 11px; letter-spacing: 3px; }
+
+            #panel-inferior { height: 180px; }
+            #tabs-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .tab-btn { padding: 10px 15px; font-size: 9px; white-space: nowrap; }
+            #grid-container { padding: 10px 15px; gap: 12px; }
+            .item-card { width: 90px; height: 90px; }
+            .item-name { font-size: 7px; }
+
+            #btn-confirmar { padding: 0 20px; font-size: 10px; height: 40px; top: -40px; }
+            #repeat-container { top: -40px; height: 40px; right: 160px; }
+
+            .modal-card-style { padding: 20px; margin: 15px; }
+            #modal-card { width: 90vw; }
+            #surface-card { width: 85vw; }
+            #confirm-card { width: 85vw; }
+        }
+
+        @media (max-width: 480px) {
+            #left-controls { top: 10px; left: 10px; gap: 6px; }
+            #btn-undo { width: 40px; }
+            .btn-action { padding: 6px 8px; font-size: 7px; width: 80px; }
+
+            #btn-finish { top: 10px; right: 10px; padding: 6px 12px; font-size: 8px; }
+
+            #medidas-container { top: 50px; right: 10px; padding: 8px; font-size: 8px; min-width: 80px; }
+
+            #panel-inferior { height: 160px; }
+            .tab-btn { padding: 8px 10px; font-size: 8px; }
+            #grid-container { padding: 8px 10px; gap: 8px; }
+            .item-card { width: 75px; height: 75px; }
+            .item-name { font-size: 6px; }
+
+            #btn-confirmar { padding: 0 15px; font-size: 9px; height: 36px; top: -36px; }
+            #repeat-container { top: -36px; height: 36px; right: 130px; }
+            .btn-qty { width: 36px; font-size: 16px; }
+        }
     </style>
 
     <script type="importmap">
@@ -408,19 +458,19 @@
             plane.position.y = -0.02;
             scene.add(plane);
 
-            const ambient = new THREE.AmbientLight(0xffffff, 1.2);
+            const ambient = new THREE.AmbientLight(0xffffff, 2.0);
             scene.add(ambient);
 
-            const hemi = new THREE.HemisphereLight(0xffffff, 0x666666, 0.8);
+            const hemi = new THREE.HemisphereLight(0xffffff, 0x777777, 1.4);
             scene.add(hemi);
 
-            const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            const mainLight = new THREE.DirectionalLight(0xffffff, 2.2);
             mainLight.position.set(5, 10, 5);
             mainLight.castShadow = true;
             mainLight.shadow.bias = -0.001;
             scene.add(mainLight);
 
-            const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            const fillLight = new THREE.DirectionalLight(0xffffff, 1.4);
             fillLight.position.set(-5, 5, -5);
             scene.add(fillLight);
 
@@ -432,7 +482,7 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.shadowMap.enabled = true;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.1; 
+            renderer.toneMappingExposure = 1.4; 
             document.body.appendChild(renderer.domElement);
 
             orbit = new OrbitControls(camera, renderer.domElement);
@@ -1055,11 +1105,11 @@
                         c.castShadow = true;
                         c.receiveShadow = true;
                         if (c.material && c.material.name === 'Frozen white metal') {
-                            c.material.metalness = 0.7;
-                            c.material.roughness = 0.25;
-                            c.material.color.set(0x888888);
+                            c.material.metalness = 0.55;
+                            c.material.roughness = 0.22;
+                            c.material.color.set(0xaaaaaa);
                             if (scene.environment) c.material.envMap = scene.environment;
-                            c.material.envMapIntensity = 2.0;
+                            c.material.envMapIntensity = 2.5;
                             c.material.needsUpdate = true;
                         }
                     }
