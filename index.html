@@ -1058,9 +1058,13 @@
                     if (c.isMesh) {
                         c.castShadow = true;
                         c.receiveShadow = true;
-                        console.log('CARGA REAL:', c.name, '| MAT:', c.material?.name, '| type:', c.material?.type);
-                        if (c.material) {
-                            c.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                        if (c.material && c.material.name === 'Frozen white metal') {
+                            c.material.metalness = 0.45;
+                            c.material.roughness = 0.2;
+                            c.material.color.set(0xd0d0d0);
+                            if (scene.environment) c.material.envMap = scene.environment;
+                            c.material.envMapIntensity = 3.0;
+                            c.material.needsUpdate = true;
                         }
                     }
                 });
