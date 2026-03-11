@@ -408,21 +408,25 @@
             plane.position.y = -0.02;
             scene.add(plane);
 
-            const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+            const ambient = new THREE.AmbientLight(0xffffff, 3.0);
             scene.add(ambient);
 
-            const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
+            const hemi = new THREE.HemisphereLight(0xffffff, 0x888888, 2.0);
             scene.add(hemi);
 
-            const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            const mainLight = new THREE.DirectionalLight(0xffffff, 3.0);
             mainLight.position.set(5, 10, 5);
             mainLight.castShadow = true;
             mainLight.shadow.bias = -0.001;
             scene.add(mainLight);
 
-            const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            const fillLight = new THREE.DirectionalLight(0xffffff, 2.0);
             fillLight.position.set(-5, 5, -5);
             scene.add(fillLight);
+
+            const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            backLight.position.set(0, 8, -10);
+            scene.add(backLight);
 
             camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 3000);
             camera.position.set(4, 3, 4);
@@ -432,7 +436,7 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.shadowMap.enabled = true;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.2; 
+            renderer.toneMappingExposure = 1.8; 
             document.body.appendChild(renderer.domElement);
 
             orbit = new OrbitControls(camera, renderer.domElement);
@@ -1056,8 +1060,8 @@
                         c.receiveShadow = true;
                         if (c.material && c.material.name === 'Frozen white metal') {
                             c.material.envMap = scene.environment || null;
-                            c.material.envMapIntensity = 2.5;
-                            c.material.roughness = Math.min(c.material.roughness, 0.25);
+                            c.material.envMapIntensity = 5.0;
+                            c.material.roughness = 0.1;
                             c.material.needsUpdate = true;
                         }
                     }
