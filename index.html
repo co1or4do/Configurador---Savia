@@ -1058,7 +1058,8 @@
                     if (c.isMesh) {
                         c.castShadow = true;
                         c.receiveShadow = true;
-                        if (c.material && c.material.name === 'Frozen white metal') {
+                        console.log('CARGA REAL:', c.name, '| MAT:', c.material?.name, '| type:', c.material?.type);
+                        if (c.material) {
                             c.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
                         }
                     }
