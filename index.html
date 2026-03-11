@@ -1058,9 +1058,11 @@
                         if (categoriaActiva === 'canos' && c.material) {
                             const mat = c.material;
                             if (mat.isMeshStandardMaterial || mat.isMeshPhysicalMaterial) {
-                                mat.metalness = Math.max(mat.metalness, 0.85);
-                                mat.roughness = Math.min(mat.roughness, 0.25);
-                                mat.envMapIntensity = 1.8;
+                                mat.color.set(0xaaaaaa);
+                                mat.metalness = 0.9;
+                                mat.roughness = 0.2;
+                                mat.envMapIntensity = 2.0;
+                                if (scene.environment) mat.envMap = scene.environment;
                                 mat.needsUpdate = true;
                             }
                         }
