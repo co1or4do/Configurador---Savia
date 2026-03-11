@@ -1055,16 +1055,10 @@
                         c.castShadow = true;
                         c.receiveShadow = true;
                         if (c.material && c.material.name === 'Frozen white metal') {
-                            c.material = new THREE.MeshPhysicalMaterial({
-                                color: 0xc0c0c0,
-                                metalness: 1.0,
-                                roughness: 0.15,
-                                reflectivity: 0.9,
-                                clearcoat: 0.1,
-                                clearcoatRoughness: 0.1,
-                                envMap: scene.environment || null,
-                                envMapIntensity: 2.5
-                            });
+                            c.material.envMap = scene.environment || null;
+                            c.material.envMapIntensity = 2.5;
+                            c.material.roughness = Math.min(c.material.roughness, 0.25);
+                            c.material.needsUpdate = true;
                         }
                     }
                 });
