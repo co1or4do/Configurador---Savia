@@ -1050,21 +1050,22 @@
                     if (fixRot.z) m.rotateZ(THREE.MathUtils.degToRad(fixRot.z));
                 }
 
+                const esCano = folder.includes('canos');
                 m.traverse(c => {
                     if (c.isMesh) {
                         c.castShadow = true;
                         c.receiveShadow = true;
-                        // Mejorar materiales metálicos de los caños
-                        if (categoriaActiva === 'canos' && c.material) {
-                            const mat = c.material;
-                            if (mat.isMeshStandardMaterial || mat.isMeshPhysicalMaterial) {
-                                mat.color.set(0xaaaaaa);
-                                mat.metalness = 0.9;
-                                mat.roughness = 0.2;
-                                mat.envMapIntensity = 2.0;
-                                if (scene.environment) mat.envMap = scene.environment;
-                                mat.needsUpdate = true;
-                            }
+                        if (esCano) {
+                            c.material = new THREE.MeshPhysicalMaterial({
+                                color: 0xd4d4d4,
+                                metalness: 1.0,
+                                roughness: 0.18,
+                                reflectivity: 0.9,
+                                clearcoat: 0.1,
+                                clearcoatRoughness: 0.15,
+                                envMap: scene.environment || null,
+                                envMapIntensity: 2.5
+                            });
                         }
                     }
                 });
