@@ -408,25 +408,21 @@
             plane.position.y = -0.02;
             scene.add(plane);
 
-            const ambient = new THREE.AmbientLight(0xffffff, 3.0);
+            const ambient = new THREE.AmbientLight(0xffffff, 1.2);
             scene.add(ambient);
 
-            const hemi = new THREE.HemisphereLight(0xffffff, 0x888888, 2.0);
+            const hemi = new THREE.HemisphereLight(0xffffff, 0x666666, 0.8);
             scene.add(hemi);
 
-            const mainLight = new THREE.DirectionalLight(0xffffff, 3.0);
+            const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
             mainLight.position.set(5, 10, 5);
             mainLight.castShadow = true;
             mainLight.shadow.bias = -0.001;
             scene.add(mainLight);
 
-            const fillLight = new THREE.DirectionalLight(0xffffff, 2.0);
+            const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
             fillLight.position.set(-5, 5, -5);
             scene.add(fillLight);
-
-            const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            backLight.position.set(0, 8, -10);
-            scene.add(backLight);
 
             camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 3000);
             camera.position.set(4, 3, 4);
@@ -436,7 +432,7 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.shadowMap.enabled = true;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.8; 
+            renderer.toneMappingExposure = 1.1; 
             document.body.appendChild(renderer.domElement);
 
             orbit = new OrbitControls(camera, renderer.domElement);
@@ -1059,11 +1055,11 @@
                         c.castShadow = true;
                         c.receiveShadow = true;
                         if (c.material && c.material.name === 'Frozen white metal') {
-                            c.material.metalness = 0.45;
-                            c.material.roughness = 0.2;
-                            c.material.color.set(0xd0d0d0);
+                            c.material.metalness = 0.7;
+                            c.material.roughness = 0.25;
+                            c.material.color.set(0x888888);
                             if (scene.environment) c.material.envMap = scene.environment;
-                            c.material.envMapIntensity = 3.0;
+                            c.material.envMapIntensity = 2.0;
                             c.material.needsUpdate = true;
                         }
                     }
